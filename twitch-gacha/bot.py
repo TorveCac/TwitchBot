@@ -79,8 +79,8 @@ class GeneralCommands(commands.Component):
         }
 
         shiny={
-            "False": 50,
-            "True": 50
+            False: 50,
+            True: 50
         }
 
         result = random.choices(

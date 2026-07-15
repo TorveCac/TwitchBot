@@ -89,7 +89,7 @@ async def main():
 
         print("About to start bot")
 
-        await asyncio.wait_for(bot.start(), timeout=30)
+        await bot.start()
 
     except Exception as e:
         print("MAIN ERROR:", repr(e))

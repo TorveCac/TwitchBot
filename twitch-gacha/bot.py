@@ -22,7 +22,7 @@ def run_web():
 class GeneralCommands(commands.Component):
 
     @commands.command()
-    async def ping(self, ctx):
+    async def test(self, ctx):
         print("Ping command wexecuted")
         await ctx.send("Pong!")
 

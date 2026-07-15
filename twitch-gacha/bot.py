@@ -4,6 +4,7 @@ import os
 import random
 import time
 
+
 from twitchio.ext import commands
 from twitchio import eventsub
 from flask import Flask
@@ -14,6 +15,14 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
+cooldowns = {}
+
+latest_pull = {
+    "frog": "",
+    "player": "",
+    "id": 0
+}
 
 @app.route("/",methods=["GET"])
 def home():
@@ -42,13 +51,32 @@ class GeneralCommands(commands.Component):
     
     @commands.command()
     async def gambling(self, ctx):
+
         global latest_pull
+
+        user_id = ctx.chatter.id
+        now = time.time()
+
+        cooldown_time = 30
+
+        if user_id in cooldowns:
+            remaining = cooldowns[user_id] - now
+
+            if remaining > 0:
+                await ctx.send(
+                    f"{ctx.chatter.name}, wait {int(remaining)} seconds before gambling again!"
+                )
+                return
+
+        cooldowns[user_id] = now + cooldown_time
+
         gacha = {
             "Common Frog": 60,
             "Rare Frog": 30,
             "Epic Frog": 9,
             "Mythic Frog": 1
         }
+
         result = random.choices(
             list(gacha.keys()),
             weights=list(gacha.values()),
@@ -60,6 +88,7 @@ class GeneralCommands(commands.Component):
             "player": ctx.chatter.name,
             "id": time.time_ns()
         }
+
         await ctx.send(
             f"{ctx.chatter.name} pulled {result}!"
         )

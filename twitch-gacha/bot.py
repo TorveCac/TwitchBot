@@ -57,7 +57,7 @@ class GeneralCommands(commands.Component):
 
         latest_pull = {
             "frog": result,
-            "player": ctx.chatter.name
+            "player": ctx.chatter.name,
             "id": time.time_ns()
         }
         await ctx.send(

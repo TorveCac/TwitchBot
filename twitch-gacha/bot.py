@@ -21,7 +21,7 @@ cooldowns = {}
 latest_pull = {
     "frog": "",
     "player": "",
-    "id": 0
+    "id": 0,
     "shiny": False
 }
 

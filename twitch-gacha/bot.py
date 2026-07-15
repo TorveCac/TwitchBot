@@ -22,6 +22,7 @@ latest_pull = {
     "frog": "",
     "player": "",
     "id": 0
+    "shiny": False
 }
 
 @app.route("/",methods=["GET"])
@@ -77,16 +78,28 @@ class GeneralCommands(commands.Component):
             "Mythic Frog": 1
         }
 
+        shiny={
+            "False": 50,
+            "True": 50
+        }
+
         result = random.choices(
             list(gacha.keys()),
             weights=list(gacha.values()),
             k=1
         )[0]
 
+        resultShiny = random.choices(
+            list(shiny.keys()),
+            weights=list(shiny.values()),
+            k=1
+        )[0]
+
         latest_pull = {
             "frog": result,
             "player": ctx.chatter.name,
-            "id": time.time_ns()
+            "id": time.time_ns(),
+            "shiny": resultShiny
         }
 
         await ctx.send(

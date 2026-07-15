@@ -8,6 +8,8 @@ from twitchio.ext import commands
 from twitchio import eventsub
 from flask import Flask
 from threading import Thread
+from flask import jsonify
+
 
 app = Flask(__name__)
 
@@ -15,6 +17,10 @@ app = Flask(__name__)
 @app.route("/",methods=["GET"])
 def home():
     return "Bot is running"
+
+@app.route("/overlay")
+def overlay():
+    return jsonify(latest_pull)
 
 def run_web():
     port = int(os.environ.get("PORT", 10000))
@@ -35,6 +41,7 @@ class GeneralCommands(commands.Component):
     
     @commands.command()
     async def gambling(self, ctx):
+        global latest_pull
         gacha = {
             "Common Frog": 60,
             "Rare Frog": 30,
@@ -46,6 +53,11 @@ class GeneralCommands(commands.Component):
             weights=list(gacha.values()),
             k=1
         )[0]
+
+        latest_pull = {
+            "frog": result,
+            "player": ctx.chatter.name
+        }
         await ctx.send(
             f"{ctx.chatter.name} pulled {result}!"
         )

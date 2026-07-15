@@ -1,6 +1,8 @@
 import asyncio
 import logging
 import os
+import random
+
 
 from twitchio.ext import commands
 from twitchio import eventsub
@@ -32,7 +34,7 @@ class GeneralCommands(commands.Component):
         await ctx.send(f"Hello {ctx.author.name}!")
     
     @commands.command()
-    async def gacha(self, ctx):
+    async def gambling(self, ctx):
         gacha = {
             "Common Frog": 60,
             "Rare Frog": 30,

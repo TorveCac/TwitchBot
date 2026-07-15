@@ -26,6 +26,7 @@ class GeneralCommands(commands.Component):
         print("Ping command wexecuted")
         await ctx.send("Pong!")
 
+    @commands.command()
     async def hello(self, ctx):
         print("Hello command executed")
         await ctx.send(f"Hello {ctx.author.name}!")

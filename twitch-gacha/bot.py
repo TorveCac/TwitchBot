@@ -1,10 +1,13 @@
 import asyncio
 import logging
-
 import os
 
 from twitchio.ext import commands
 from twitchio import eventsub
+from flask import Flask
+from threading import Thread
+
+app = Flask(__name__)
 
 
 #logging.basicConfig(level=logging.DEBUG)
@@ -25,6 +28,15 @@ class Bot(commands.Bot):
             owner_id=os.environ["owner_id"],
             prefix="!",
         )
+
+    @app.route("/")
+        def home():
+        return "Bot is running"
+
+    def run_web():
+        port = int(os.environ.get("PORT", 10000))
+        app.run(host="0.0.0.0", port=port)
+
     async def event_error(self, error=None):
         print("ERROR:", error)
 
@@ -55,6 +67,7 @@ class Bot(commands.Bot):
 
 
 async def main():
+    Thread(target=run_web, daemon=True).start()
     bot = Bot()
     await bot.start()
 

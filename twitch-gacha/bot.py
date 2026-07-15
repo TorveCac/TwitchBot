@@ -30,6 +30,26 @@ class GeneralCommands(commands.Component):
     async def hello(self, ctx):
         print("Hello command executed")
         await ctx.send(f"Hello {ctx.author.name}!")
+    
+    @commands.command()
+    async def pull(self, ctx):
+
+        gacha = {
+            "Common Frog": 60,
+            "Rare Frog": 30,
+            "Epic Frog": 9,
+            "Mythic Frog": 1
+        }
+
+        result = random.choices(
+            list(gacha.keys()),
+            weights=list(gacha.values()),
+            k=1
+        )[0]
+
+        await ctx.send(
+            f"{ctx.chatter.name} pulled {result}!"
+        )
 
 class Bot(commands.Bot):
     def __init__(self):

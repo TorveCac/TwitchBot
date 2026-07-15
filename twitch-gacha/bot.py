@@ -35,6 +35,7 @@ class Bot(commands.Bot):
             owner_id=os.environ["owner_id"],
             prefix="!",
         )
+        print("Bot init")
 
 
     async def event_error(self, error=None):
@@ -67,6 +68,7 @@ class Bot(commands.Bot):
 
 
 async def main():
+    print("Starting bot...")
     Thread(target=run_web, daemon=True).start()
     bot = Bot()
     await bot.start()

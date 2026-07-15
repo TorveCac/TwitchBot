@@ -1,3 +1,4 @@
 twitchio[starlette]
 flask
 gunicorn
+flask-cors

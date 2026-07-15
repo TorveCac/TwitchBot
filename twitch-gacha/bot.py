@@ -2,7 +2,7 @@ import asyncio
 import logging
 import os
 import random
-
+import time
 
 from twitchio.ext import commands
 from twitchio import eventsub
@@ -58,6 +58,7 @@ class GeneralCommands(commands.Component):
         latest_pull = {
             "frog": result,
             "player": ctx.chatter.name
+            "id": time.time_ns()
         }
         await ctx.send(
             f"{ctx.chatter.name} pulled {result}!"

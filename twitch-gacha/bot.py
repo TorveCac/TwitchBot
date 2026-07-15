@@ -102,7 +102,7 @@ class GeneralCommands(commands.Component):
             "shiny": resultShiny
         }
 
-        if resultShiny == "True":
+        if resultShiny:
             await ctx.send(
                 f"No way! {ctx.chatter.name} pulled a shiny {result}!"
             )

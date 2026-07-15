@@ -26,6 +26,10 @@ class GeneralCommands(commands.Component):
         print("Ping command wexecuted")
         await ctx.send("Pong!")
 
+    async def hello(self, ctx):
+        print("Hello command executed")
+        await ctx.send(f"Hello {ctx.author.name}!")
+
 class Bot(commands.Bot):
     def __init__(self):
         super().__init__(

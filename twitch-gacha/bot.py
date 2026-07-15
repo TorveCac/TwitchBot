@@ -80,10 +80,18 @@ class Bot(commands.Bot):
 
 
 async def main():
-    print("Starting bot...")
-    Thread(target=run_web, daemon=True).start()
-    bot = Bot()
-    await bot.start()
+    try:
+        print("Starting bot...")
+
+        Thread(target=run_web, daemon=True).start()
+
+        bot = Bot()
+
+        print("About to start bot")
+        await bot.start()
+
+    except Exception as e:
+        print("MAIN ERROR:", repr(e))
 
 
 if __name__ == "__main__":

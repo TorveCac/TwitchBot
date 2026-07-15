@@ -42,17 +42,29 @@ class Bot(commands.Bot):
         print("ERROR:", error)
 
     async def setup_hook(self):
-        await self.add_token(os.environ["access_token"], os.environ["refresh_token"])
+        print("setup_hook started")
+
+        await self.add_token(
+            os.environ["access_token"],
+            os.environ["refresh_token"]
+        )
+
+        print("token added")
+
         await self.add_component(GeneralCommands())
+
+        print("component added")
 
         chat = eventsub.ChatMessageSubscription(
             broadcaster_user_id=self.owner_id,
             user_id=self.bot_id
         )
 
+        print("subscription created")
+
         await self.subscribe_websocket(chat)
+
         print("Chat subscription created")
-        print(self.commands)
 
 
     async def event_ready(self):

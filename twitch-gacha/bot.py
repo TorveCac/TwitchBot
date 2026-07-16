@@ -106,10 +106,7 @@ class GeneralCommands(commands.Component):
             await ctx.send(
                 f"No way! {ctx.chatter.name} pulled a shiny {result}!"
             )
-        else:
-            await ctx.send(
-                f"{ctx.chatter.name} pulled {result}!"
-            )
+
 
 class Bot(commands.Bot):
     def __init__(self):
